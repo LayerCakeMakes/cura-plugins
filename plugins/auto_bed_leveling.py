@@ -1,11 +1,11 @@
-#Name: Auto Bed Leveling 15.02
+#Name: Auto Bed Leveling 15.03
 #Info: Auto level the bed before the extruder gets heated up. This avoids blobs when using FSRs under the bed.
 #Depend: GCode
 #Type: postprocess
 
 __copyright__ = "Copyright 2015, Kai Hendrik Behrends"
 __license__ = "MIT"
-__version__ = "15.02"
+__version__ = "15.03"
 
 # Used G-codes
 # ============
@@ -14,6 +14,7 @@ __version__ = "15.02"
 
 # Changelog
 # =========
+# 15.03 - Fixed removal of G-codes after begin of layers section.
 # 15.02 - Initial Version.
 
 
@@ -33,7 +34,7 @@ with open(filename, "w") as f:
             leveling_done = True
             f.write("G28 ;home all axes\n")
             f.write("G29 ;auto level the bed\n")
-        elif (line.startswith("G28") or line.startswith("G29") and
+        elif ((line.startswith("G28") or line.startswith("G29")) and
                 not layers_section_handled):
             # Skip all other G28 and G29 codes before the layers
             # section.

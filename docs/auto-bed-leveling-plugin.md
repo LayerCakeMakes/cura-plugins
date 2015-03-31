@@ -1,6 +1,6 @@
 # Auto Bed Leveling Plugin
 
-**Current Version:** 15.02
+**Current Version:** 15.03
 
 ## Description
 

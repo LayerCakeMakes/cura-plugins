@@ -1,4 +1,4 @@
-#Name: Status Melodies 15.02
+#Name: Status Melodies 15.03
 #Info: Add status melodies for print started, heat up finished, and print finished.
 #Depend: GCode
 #Type: postprocess
@@ -12,7 +12,7 @@ import re
 
 __copyright__ = "Copyright 2015, Kai Hendrik Behrends"
 __license__ = "MIT"
-__version__ = "15.02"
+__version__ = "15.03"
 
 # Used G-codes
 # ============
@@ -21,6 +21,7 @@ __version__ = "15.02"
 
 # Changelog
 # =========
+# 15.03 - Fixed double print finished melody.
 # 15.02 - Initial Version.
 
 
@@ -364,8 +365,8 @@ with open(filename, "w") as f:
                 f.write(heat_up_finished_gcode)
                 f.write(";End heat up finished melody\n")
             continue
-        if (line.startswith(";CURA_PROFILE_STRING:") and
-                not print_finished_handled):
+        if line.startswith(";CURA_PROFILE_STRING:"):
+            print_finished_handled = True
             # Add print finished melody before the CURA_PROFILE_STRING.
             if print_finished_gcode is not None:
                 f.write(";Begin print finished melody\n")
